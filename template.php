@@ -18,9 +18,9 @@
         </nav>
         
         <div id="main-menu" class="container">
-            <ul class="nav nav-tabs nav-justified font-weight-bold ">
-                <li class="nav-item menu-act">
-                  <a class="nav-link active rounded-top" href="index.php">Strona główna</a>
+            <ul class="nav nav-tabs nav-justified font-weight-bold">
+                <li class="nav-item menu-act rounded-top">
+                  <a class="nav-link active" href="index.php">Strona główna</a>
                 </li>
                 <li class="nav-item menu-unact rounded-top">
                     <a class="nav-link" href="user.php?user_id=">Twoje tweety</a>
@@ -41,12 +41,12 @@
                     <legend><small>Legenda</small></legend>
                     <div class="form-group">
                         <label>Etykieta
-                            <input name="email" type="text" class="form-control">
+                            <input name="email" type="text" class="form-control" required>
                         </label>
                     </div>
                     <div class="form-group">
                         <label>Etykieta</label><br />
-                        <textarea type="text" name="text" class="form-control"></textarea>
+                        <textarea type="text" name="text" class="form-control" required></textarea>
                     </div>
                     <button type="submit" class="btn btn-secondary">Dodaj</button>
                 </fieldset>

@@ -12,6 +12,7 @@ if (isset($_SESSION['loggedUserId'])) {
 require_once 'config.php';
 require_once './src/User.php';
 
+//weryfikacja użytkownika podczas logowania
 if($_SERVER['REQUEST_METHOD'] == 'POST') {
     if (isset($_POST['email']) && strlen(trim($_POST['email'])) >= 5
         && isset($_POST['password']) && strlen(trim($_POST['password'])) >= 6) {
@@ -23,13 +24,15 @@ if($_SERVER['REQUEST_METHOD'] == 'POST') {
             $_SESSION['loggedUserId'] = $user->getId();
             header('Location: index.php');
         } else {
-            $_SESSION['error'] = '<div class="form-control-feedback>Nieprawidłowy login '
+            $_SESSION['error'] = '<div class="form-control-feedback">Nieprawidłowy login '
                     . 'lub hasło</div>';
         }
     } else {
         $_SESSION['error'] = '<div class="form-control-feedback">Nieprawidłowy login '
                     . 'lub hasło</div>';  
     }
+    $conn->close();
+    $conn = NULL;
 }
 
 ?>
@@ -46,12 +49,12 @@ if($_SERVER['REQUEST_METHOD'] == 'POST') {
         
         <nav id="header" class="navbar fixed-top font-italic font-weight-bold">
             <span class="navbar-brand">KJ_TWITTER</span>
-        </nav><br/>
+        </nav>
         
         <div id="main-menu" class="container">
-            <ul class="nav nav-tabs nav-justified font-weight-bold ">
-                <li class="nav-item menu-act">
-                  <a class="nav-link active rounded-top" href="login.php">Logowanie</a>
+            <ul class="nav nav-tabs nav-justified font-weight-bold">
+                <li class="nav-item menu-act rounded-top">
+                  <a class="nav-link active" href="login.php">Logowanie</a>
                 </li>
                 <li class="nav-item menu-unact rounded-top">
                     <a class="nav-link" href="registration.php">Rejestracja</a>
@@ -66,12 +69,12 @@ if($_SERVER['REQUEST_METHOD'] == 'POST') {
                     <legend><small>Zaloguj się lub przejdź do rejestracji</small></legend>
                     <div class="form-group">
                         <label>Email
-                            <input name="email" type="text" class="form-control">
+                            <input name="email" type="text" class="form-control" required>
                         </label>
                     </div>
                     <div class="form-group">
                         <label>Hasło
-                            <input name="password" type="password" class="form-control">
+                            <input name="password" type="password" class="form-control" required>
                             <?php
                             if(isset($_SESSION['error'])) {
                                 echo $_SESSION['error'];

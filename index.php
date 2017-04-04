@@ -14,7 +14,7 @@ if (!isset($_SESSION['loggedUserId'])) {
     header("Location: login.php");
     exit();
 } 
-echo var_dump($_SESSION);
+
 if(($_SERVER['REQUEST_METHOD'] == 'POST') && isset($_POST['submit'])) {
     $newTweet = new Tweet();
     $newTweet->setText($_POST['text']);
@@ -45,9 +45,9 @@ if(($_SERVER['REQUEST_METHOD'] == 'POST') && isset($_POST['submit'])) {
         </nav><br/>
         
         <div id="main-menu" class="container">
-            <ul class="nav nav-tabs nav-justified font-weight-bold ">
-                <li class="nav-item menu-act">
-                  <a class="nav-link active rounded-top" href="index.php">Strona główna</a>
+            <ul class="nav nav-tabs nav-justified font-weight-bold">
+                <li class="nav-item menu-act rounded-top">
+                  <a class="nav-link active" href="index.php">Strona główna</a>
                 </li>
                 <li class="nav-item menu-unact rounded-top">
                     <a class="nav-link" href="user.php?user_id=">Twoje tweety</a>
@@ -62,6 +62,14 @@ if(($_SERVER['REQUEST_METHOD'] == 'POST') && isset($_POST['submit'])) {
         </div>
             
         <div id="main-content" class="container rounded">
+            
+            <?php
+            if(isset($_SESSION['successful_registration'])) {
+                echo $_SESSION['successful_registration'];
+                unset($_SESSION['successful_registration']);
+            }
+            ?>
+            
             <!--formularz dodawania nowego tweeta-->
             <form method="POST" action="#">
                 <fieldset class="form-group">
