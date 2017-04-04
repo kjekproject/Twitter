@@ -1,0 +1,49 @@
+body {
+    background-color: #f4f4f4;
+}
+
+#header {
+    background-color: #373737;
+    height: 60px;
+    color: white;
+    padding-left: 70px;
+}
+
+#main-menu {
+    margin-top: 90px;
+    
+}
+
+#main-content {
+    background-color: #dcd0c0;
+    min-height: 600px;
+    padding: 30px 50px;
+}
+.menu-act {
+    background-color: #c0b283;
+    border: solid 2px #c0b283;
+}
+
+.menu-unact {
+    background-color: #d4caaa;
+    border: solid 2px #c0b283;
+}
+
+.form-group {
+    margin: 0px 0px 0px 0px;
+}
+
+fieldset {
+    border: solid #c0b283;
+    padding: 0 10px 10px 10px;
+}
+
+legend {
+    width: auto;
+}
+
+.btn-primary {
+    margin-top: 2px;
+}
+
+/*https://hackerthemes.com/bootstrap-cheatsheet/#btn-secondary*/
