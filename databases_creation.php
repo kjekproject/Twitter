@@ -16,36 +16,36 @@ CREATE TABLE users (
 
 CREATE TABLE tweets (
     id int NOT NULL AUTO_INCREMENT,
-    user_id int NOT NULL,
+    userId int NOT NULL,
     text varchar(180) NOT NULL,
-    creation_date datetime NOT NULL,
+    creationDate datetime NOT NULL,
     PRIMARY KEY(id),
-    FOREIGN KEY(user_id) REFERENCES users(id)
+    FOREIGN KEY(userId) REFERENCES users(id)
     ON DELETE CASCADE
     );
  
 CREATE TABLE comments (
     id int NOT NULL AUTO_INCREMENT,
-    user_id int NOT NULL,
-    tweet_id int NOT NULL,
+    userId int NOT NULL,
+    tweetId int NOT NULL,
     text varchar(60) NOT NULL,
-    creation_date datetime NOT NULL,
+    creationDate datetime NOT NULL,
     PRIMARY KEY(id),
-    FOREIGN KEY(user_id) REFERENCES users(id),
-    FOREIGN KEY(tweet_id) REFERENCES tweets(id)
+    FOREIGN KEY(userId) REFERENCES users(id),
+    FOREIGN KEY(tweetId) REFERENCES tweets(id)
     ON DELETE CASCADE
     );
  
 CREATE TABLE messages (
     id int NOT NULL AUTO_INCREMENT,
-    author_id int NOT NULL,
-    recipient_id int NOT NULL,
+    authorId int NOT NULL,
+    recipientId int NOT NULL,
     text varchar(1000) NOT NULL,
-    creation_date datetime NOT NULL,
+    creationDate datetime NOT NULL,
     status int NOT NULL,
     PRIMARY KEY(id),
-    FOREIGN KEY(author_id) REFERENCES users(id),
-    FOREIGN KEY(recipient_id) REFERENCES users(id)
+    FOREIGN KEY(authorId) REFERENCES users(id),
+    FOREIGN KEY(recipientId) REFERENCES users(id)
     ON DELETE CASCADE
     );
  */

@@ -23,7 +23,10 @@
                   <a class="nav-link active" href="index.php">Strona główna</a>
                 </li>
                 <li class="nav-item menu-unact rounded-top">
-                    <a class="nav-link" href="user.php?user_id=">Twoje tweety</a>
+                    <?php
+                    echo '<a class="nav-link" href="user.php?userId='.
+                            $_SESSION['loggedUserId'].'">Twoje tweety</a>';
+                    ?>
                 </li>
                 <li class="nav-item menu-unact rounded-top">
                     <a class="nav-link" href="messages.php">Wiadomości</a>

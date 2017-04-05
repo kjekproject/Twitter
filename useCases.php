@@ -1,6 +1,8 @@
 <?php
 
 require_once './src/User.php';
+require_once './src/Tweet.php';
+require_once './src/Comment.php';
 require_once 'config.php';
 
 /*
@@ -52,3 +54,53 @@ $uu->delete($conn);
 echo '<br/>'.$uu->getId();
  * 
  */
+
+/*
+$newTweet = new Tweet();
+$newTweet->setUserId(1);
+$newTweet->setText('To jest mój pierwszy tweet. Hello world!');
+$newTweet->setCreationDate('2017-04-04 12:44:12');
+$newTweet->saveToDB($conn);
+
+$newTweet = new Tweet();
+$newTweet->setUserId(2);
+$newTweet->setText('Hello world!');
+$newTweet->setCreationDate('2017-04-04 12:47:12');
+$newTweet->saveToDB($conn);
+
+$allTweets = Tweet::loadAllTweets($conn);
+var_dump($allTweets);
+
+$firstTweet = Tweet::loadTweetById($conn, 3);
+var_dump($firstTweet);
+
+$firstUserTweet = Tweet::loadTweetsByUserId($conn, 1);
+var_dump($firstUserTweet);
+
+$firstTweet = Tweet::loadTweetById($conn, 3);
+var_dump($firstTweet);
+$text = $firstTweet->getText().' Hello!! hello!!';
+$firstTweet->setText($text);
+$firstTweet->saveToDB($conn);
+$firstTweetChanged = Tweet::loadTweetById($conn, 3);
+var_dump($firstTweetChanged);
+ * 
+ */
+/*
+$comment = new Comment();
+$comment->setUserId(1);
+$comment->setTweetId(4);
+$comment->setCreationDate('2017-04-04 15:47:12');
+$comment->setText('Hello!');
+$comment->saveToDB($conn);
+
+$comment = new Comment();
+$comment->setUserId(1);
+$comment->setTweetId(4);
+$comment->setCreationDate('2017-04-04 15:48:12');
+$comment->setText('Witam!');
+$comment->saveToDB($conn);
+ * 
+ */
+$comments = Comment::loadCommentsByTweetId($conn, 4);
+var_dump($comments);
