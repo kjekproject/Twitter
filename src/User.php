@@ -144,5 +144,16 @@ class User
             return null;
         }
     }
+    
+    static public function getUserNameById(mysqli $conn, $userId) {
+        $sql = "SELECT userName FROM users WHERE id=$userId";
+        $result = $conn->query($sql);
+        
+        if($result == TRUE && $result->num_rows == 1) {
+            $row = $result->fetch_assoc();
+            return $row['userName'];
+        }
+        return NULL;
+    }
 
 }

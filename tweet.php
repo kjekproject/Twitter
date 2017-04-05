@@ -7,11 +7,31 @@ if (!isset($_SESSION['loggedUserId'])) {
     exit();
 }
 
+require_once 'config.php';
+//require_once 'src/User.php';
+require_once 'src/Tweet.php';
+require_once 'src/Comment.php';
+
 //obługa dodawania komentarza
 if($_SERVER['REQUEST_METHOD'] == 'POST') {
-    
+    if(isset($_POST['text']) & strlen(trim($_POST['text'])) > 0) {
+        $newComment = new Comment();
+        $newComment->setUserId($_SESSION['loggedUserId']);
+        $newComment->setTweetId($_GET['tweetId']);
+        $newComment->setText($_POST['text']);
+        $newComment->setCreationDate(date('Y-m-d H:i:s'));
+        $newComment->saveToDB($conn);
+    }
 }
 
+//sprawdzenie czy podano id tweeta
+if(isset($_GET['tweetId'])) {
+    $tweetId = $_GET['tweetId'];
+} else {
+    header('Location: index.php');
+    exit();
+}
+var_dump($tweetId);
 ?>
 <!DOCTYPE HTML>
 <html lang="pl">
@@ -50,6 +70,15 @@ if($_SERVER['REQUEST_METHOD'] == 'POST') {
         </div>
             
         <div id="main-content" class="container rounded">
+                <?php
+                //wyświetlanie tweeta
+                $tweet = Tweet::loadTweetById($conn, $tweetId);
+                    echo '<div>'
+                            . '<a href="user.php?userId=' . $tweet->getUserId() . '">'
+                            . $tweet->getUserName() . '</a> ' . $tweet->getCreationDate()
+                            . ' napisał: <br/>' . $tweet->getText()
+                        . '</div><br/>';
+                ?>
             <!--formularz dodawania nowego komentarza-->
             <form method="POST" action="#">
                 <fieldset class="form-group">
@@ -63,7 +92,18 @@ if($_SERVER['REQUEST_METHOD'] == 'POST') {
             </form> 
             
             <div>
-                pusty div
+                <!--wyświetlanie wszystkich komentarzy do tweeta-->
+                <h5>Komentarze:</h5>
+                <?php
+                $comments = Comment::loadCommentsByTweetId($conn, $tweetId);
+                for($i = 0; $i < count($comments); $i++) {
+                    echo '<div>'
+                            . '<a href="user.php?userId=' . $comments[$i]->getUserId() . '">' . $comments[$i]->getUserName().'</a> '
+                            . $comments[$i]->getCreationDate().' napisał: <br/>'
+                            . $comments[$i]->getText() . '<br/>'
+                        . '</div><br/>';
+                }
+                ?>
             </div>
         </div>
 

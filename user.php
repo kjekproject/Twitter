@@ -11,11 +11,12 @@ if (!isset($_SESSION['loggedUserId'])) {
 require_once 'config.php';
 require_once './src/User.php';
 require_once './src/Tweet.php';
+require_once './src/Comment.php';
 
 //sprawdzenie czy przesłane zostało zapytanie z id użytkownika
 if($_SERVER['REQUEST_METHOD'] === 'GET') {
     if(isset($_GET['userId'])) {
-        $user_id = $_GET['userId'];
+        $userId = $_GET['userId'];
     } else {
         header('Location: index.php');
         exit();
@@ -60,7 +61,18 @@ if($_SERVER['REQUEST_METHOD'] === 'GET') {
         </div>
             
         <div id="main-content" class="container rounded">
-            
+            <?php
+            $userTweets = Tweet::loadAllTweetsByUserId($conn, $userId);
+            echo '<h5>Posty użytkownika '.User::getUserNameById($conn, $userId).'</h5>';
+            for($i=0; $i <count($userTweets); $i++) {
+                $commentsNumber = Comment::getCommentsNumberByTweetId($conn, $userTweets[$i]->getId());
+                echo '<div>'
+                        . ' Tweet opublikowany ' . $userTweets[$i]->getCreationDate().'<br/>' 
+                        . '<a href="tweet.php?tweetId='.$userTweets[$i]->getId().'">'.$userTweets[$i]->getText() . '<br/>'
+                        . 'Liczba komentarzy: ' . $commentsNumber . '</a>'
+                    . '</div><br/>';
+            }
+            ?>
         </div>
 
         <script src="https://code.jquery.com/jquery-3.1.1.slim.min.js" integrity="sha384-A7FZj7v+d/sdmMqp/nOQwliLvUsJfDHW+k9Omg/a/EheAdgtzNs3hpfag6Ed950n" crossorigin="anonymous"></script>

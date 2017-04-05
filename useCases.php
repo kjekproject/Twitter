@@ -74,7 +74,7 @@ var_dump($allTweets);
 $firstTweet = Tweet::loadTweetById($conn, 3);
 var_dump($firstTweet);
 
-$firstUserTweet = Tweet::loadTweetsByUserId($conn, 1);
+$firstUserTweet = Tweet::loadAllTweetsByUserId($conn, 1);
 var_dump($firstUserTweet);
 
 $firstTweet = Tweet::loadTweetById($conn, 3);
@@ -88,19 +88,28 @@ var_dump($firstTweetChanged);
  */
 /*
 $comment = new Comment();
-$comment->setUserId(1);
-$comment->setTweetId(4);
-$comment->setCreationDate('2017-04-04 15:47:12');
+$comment->setUserId(15);
+$comment->setTweetId(1);
+$comment->setCreationDate('2017-04-05 21:47:12');
 $comment->setText('Hello!');
 $comment->saveToDB($conn);
 
 $comment = new Comment();
-$comment->setUserId(1);
-$comment->setTweetId(4);
-$comment->setCreationDate('2017-04-04 15:48:12');
-$comment->setText('Witam!');
+$comment->setUserId(15);
+$comment->setTweetId(1);
+$comment->setCreationDate('2017-04-05 21:48:12');
+$comment->setText('Witam!!');
 $comment->saveToDB($conn);
+
+$comments = Comment::loadCommentsByTweetId($conn, 1);
+var_dump($comments);
+
+$comment = Comment::loadCommentById($conn, 1);
+var_dump($comment);
+
+$commentsNumber = Comment::getCommentsNumberByTweetId($conn, 1);
+echo $commentsNumber;
  * 
  */
-$comments = Comment::loadCommentsByTweetId($conn, 4);
-var_dump($comments);
+$d = User::getUserNameById($conn, 15);
+var_dump($d);

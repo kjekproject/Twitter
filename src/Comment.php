@@ -80,7 +80,8 @@ class Comment {
     }
     
     static public function loadCommentsByTweetId(mysqli $conn, $tweetId) {
-        $sql = "SELECT * FROM comments c JOIN users u ON c.userId=u.id
+        $sql = "SELECT c.id, c.userId, u.userName, c.tweetId, c.text, c.creationDate
+                FROM comments c JOIN users u ON c.userId=u.id
                 WHERE tweetId=$tweetId ORDER BY creationDate DESC";
         $result = $conn->query($sql);
         $comments = [];
@@ -90,6 +91,7 @@ class Comment {
                 $loadedComment = new Comment;
                 $loadedComment->id = $row['id'];
                 $loadedComment->userId = $row['userId'];
+                $loadedComment->userName = $row['userName'];
                 $loadedComment->tweetId = $row['tweetId'];
                 $loadedComment->text = $row['text'];
                 $loadedComment->creationDate = $row['creationDate'];
@@ -100,6 +102,25 @@ class Comment {
         return $comments;
     }
     
+    static public function loadCommentById(mysqli $conn, $commentId) {
+        $sql = "SELECT * FROM comments WHERE id=$commentId";
+        $result = $conn->query($sql);
+        
+        if($result == TRUE && $result->num_rows == 1) {
+            $row = $result->fetch_assoc();
+            
+            $loadedComment = new Comment;
+            $loadedComment->id = $row['id'];
+            $loadedComment->userId = $row['userId'];
+            $loadedComment->tweetId = $row['tweetId'];
+            $loadedComment->text = $row['text'];
+            $loadedComment->creationDate = $row['creationDate'];
+                
+            return $loadedComment;
+        }
+        return NULL;
+    }
+
     static public function getCommentsNumberByTweetId(mysqli $conn, $tweetId) {
         $sql = "SELECT * FROM comments WHERE tweetId=$tweetId";
         $result = $conn->query($sql);

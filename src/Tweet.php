@@ -70,7 +70,8 @@ class Tweet {
     }
 
     static public function loadAllTweets(mysqli $conn) {
-        $sql = "SELECT * FROM tweets t JOIN users u ON t.userId = u.id ORDER BY creationDate DESC";
+        $sql = "SELECT t.id, t.userId, u.userName, t.text, t.creationDate FROM tweets t
+                JOIN users u ON t.userId = u.id ORDER BY creationDate DESC";
         $result = $conn->query($sql);
         $tweets = [];
         
@@ -90,7 +91,8 @@ class Tweet {
     }
     
     static public function loadTweetById(mysqli $conn, $id) {
-        $sql = "SELECT * FROM tweets WHERE id=$id";
+        $sql = "SELECT t.id, t.userId, u.userName, t.text, t.creationDate
+                FROM tweets t JOIN users u ON t.userId=u.id WHERE t.id=$id";
         $result = $conn->query($sql);
         
         if($result == TRUE && $result->num_rows == 1) {
@@ -99,6 +101,7 @@ class Tweet {
             $loadedTweet = new Tweet();
             $loadedTweet->id = $row['id'];
             $loadedTweet->userId = $row['userId'];
+            $loadedTweet->userName = $row['userName'];
             $loadedTweet->text = $row['text'];
             $loadedTweet->creationDate = $row['creationDate'];
             
@@ -107,7 +110,7 @@ class Tweet {
         return NULL;
     }
     
-    static public function loadTweetsByUserId(mysqli $conn, $userId) {
+    static public function loadAllTweetsByUserId(mysqli $conn, $userId) {
         $sql = "SELECT * FROM tweets WHERE userId=$userId ORDER BY creationDate DESC";
         $result = $conn->query($sql);
         $tweets = [];
