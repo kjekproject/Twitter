@@ -61,7 +61,9 @@ if($_SERVER['REQUEST_METHOD'] === 'GET') {
         </div>
             
         <div id="main-content" class="container rounded">
+            
             <?php
+            //wyświetlanie wszystkich tweetów użytkownika wraz z liczbą komentarzy
             $userTweets = Tweet::loadAllTweetsByUserId($conn, $userId);
             echo '<h5>Posty użytkownika '.User::getUserNameById($conn, $userId).'</h5>';
             for($i=0; $i <count($userTweets); $i++) {
