@@ -28,7 +28,7 @@ if($_SERVER['REQUEST_METHOD'] === 'GET') {
 <html lang="pl">
     <head>
         <meta charset="UTF-8">
-        <title>Twitter - logowanie</title>
+        <title>Twitter - strona użytkownika</title>
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css" integrity="sha384-rwoIResjU2yc3z8GV/NPeZWAv56rSmLldC3R/AZzGRnGxQQKnKkoFVhFQhNUwEyJ" crossorigin="anonymous">
         <link rel="stylesheet" href="css/style.css">
     </head>
@@ -45,10 +45,17 @@ if($_SERVER['REQUEST_METHOD'] === 'GET') {
                 <li class="nav-item menu-unact rounded-top">
                   <a class="nav-link" href="index.php">Strona główna</a>
                 </li>
-                <li class="nav-item menu-unact rounded-top">
+                <li 
                     <?php
-                    echo '<a class="nav-link" href="user.php?userId='.
+                    if($userId != $_SESSION['loggedUserId']) {
+                        echo 'class="nav-item menu-unact rounded-top">'
+                            . '<a class="nav-link" href="user.php?userId='.
+                            $_SESSION['loggedUserId'].'">Twoje tweety</a>';                     
+                    } else {
+                        echo 'class="nav-item menu-act rounded-top">'
+                            . '<a class="nav-link active" href="user.php?userId='.
                             $_SESSION['loggedUserId'].'">Twoje tweety</a>';
+                    }                 
                     ?>
                 </li>
                 <li class="nav-item menu-unact rounded-top">
@@ -61,9 +68,29 @@ if($_SERVER['REQUEST_METHOD'] === 'GET') {
         </div>
             
         <div id="main-content" class="container rounded">
+            <div class="row">
+                <div class="col-md-8">
+                    <?php
+                    if($userId != $_SESSION['loggedUserId']) {
+                        $userName = User::getUserNameById($conn, $userId);
+                        echo '<h5>Posty użytkownika '.$userName.'</h5>';
+                    } else {
+                        echo '<h5>Twoje posty</h5>';
+                    }
+                    ?>
+                </div>
+                <div class="col-md-4">
+                    <?php
+                    if($userId != $_SESSION['loggedUserId']) {
+                    echo '<a class="btn btn-primary float-md-right" href="send_message.php?recipientId='.$userId.'">'
+                    . 'Wyślij wiadomość do '.$userName.'</a>';
+                    }
+                    ?>
+                </div>
+            </div><br/>
+            <!--drukowanie wszystkich tweetów użytkownika wraz z ilością komentarzy-->
             <?php
             $userTweets = Tweet::loadAllTweetsByUserId($conn, $userId);
-            echo '<h5>Posty użytkownika '.User::getUserNameById($conn, $userId).'</h5>';
             for($i=0; $i <count($userTweets); $i++) {
                 $commentsNumber = Comment::getCommentsNumberByTweetId($conn, $userTweets[$i]->getId());
                 echo '<div>'

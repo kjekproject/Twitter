@@ -11,24 +11,24 @@ if($_SERVER['REQUEST_METHOD'] == 'POST') {
     //sprawdzenie poprawności maila
     $email1 = $_POST['email'];
     $email2 = filter_var($_POST['email'], FILTER_VALIDATE_EMAIL);
-    if($email1 != $email2 || strlen(trim($email1))<5) {
+    if($email1 != $email2) {
         $flag_ok = false;
         //zmienna do przesyłania komunikatu o błędzie
-        $_SESSION['e_email'] = '<div class="form-control-feedback">Nieprawidłowy adres email.</div>';
+        $_SESSION['errorEmail'] = '<div class="form-control-feedback">Nieprawidłowy adres email.</div>';
     }
     
     //sprawdzenie poprawności nazwy użytkownika
     $name = $_POST['userName'];
     if(strlen(trim($name)) < 3 || strlen(trim($name)) > 30) {
         $flag_ok = false;
-        $_SESSION['e_userName'] = '<div class="form-control-feedback">Nazwa użytkownika powinna zawierać od 3 do 30 znaków.</div>';
+        $_SESSION['errorUserName'] = '<div class="form-control-feedback">Nazwa użytkownika powinna zawierać od 3 do 30 znaków.</div>';
     }
     
     //sprawdzenie poprawności hasła
     $password = $_POST['password'];
     if(strlen(trim($password)) < 5 || strlen(trim($password)) > 20) {
         $flag_ok = false;
-        $_SESSION['e_password'] = '<div class="form-control-feedback">Hasło powinno zawierać od 5 do 20 znaków.</div>';
+        $_SESSION['errorPassword'] = '<div class="form-control-feedback">Hasło powinno zawierać od 5 do 20 znaków.</div>';
     }
     
     //sprawdzenie przy użyciu zmiennej pomocniczej czy dane z formularza były poprawne
@@ -40,7 +40,7 @@ if($_SERVER['REQUEST_METHOD'] == 'POST') {
         
         $user = User::loadUserByEmail($conn, $email1);
         if($user !== NULL) {
-            $_SESSION['e_email'] = '<div class="form-control-feedback">Istnieje już konto przypisane do tego adresu email.</div>';
+            $_SESSION['errorEmail'] = '<div class="form-control-feedback">Istnieje już konto przypisane do tego adresu email.</div>';
         } else {
             
             //tworzymy nowego użytkownika i dodajemy do bazy danych
@@ -51,7 +51,7 @@ if($_SERVER['REQUEST_METHOD'] == 'POST') {
             
             if($newUser->saveToDB($conn) == TRUE) {
                 $_SESSION['loggedUserId'] = $newUser->getId();
-                $_SESSION['successful_registration'] = '<div>Rejestracja udana. Witamy!</div><br/>';
+                $_SESSION['successfulRegistration'] = '<div>Rejestracja udana. Witamy!</div><br/>';
                 header('Location: index.php');
             }
         }
@@ -65,7 +65,7 @@ if($_SERVER['REQUEST_METHOD'] == 'POST') {
 <html lang="pl">
     <head>
         <meta charset="UTF-8">
-        <title>Twitter - logowanie</title>
+        <title>Twitter - rejestracja</title>
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css" integrity="sha384-rwoIResjU2yc3z8GV/NPeZWAv56rSmLldC3R/AZzGRnGxQQKnKkoFVhFQhNUwEyJ" crossorigin="anonymous">
         <link rel="stylesheet" href="css/style.css">
     </head>
@@ -96,9 +96,9 @@ if($_SERVER['REQUEST_METHOD'] == 'POST') {
                         <label>Email
                             <input name="email" type="text" class="form-control" required>
                             <?php
-                            if(isset($_SESSION['e_email'])) {
-                                echo $_SESSION['e_email'];
-                                unset ($_SESSION['e_email']);
+                            if(isset($_SESSION['errorEmail'])) {
+                                echo $_SESSION['errorEmail'];
+                                unset ($_SESSION['errorEmail']);
                             }
                             ?>
                         </label>
@@ -107,9 +107,9 @@ if($_SERVER['REQUEST_METHOD'] == 'POST') {
                         <label>Nazwa użytkownika
                             <input name="userName" type="text" class="form-control" required>
                             <?php
-                            if(isset($_SESSION['e_userName'])) {
-                                echo $_SESSION['e_userName'];
-                                unset ($_SESSION['e_userName']);
+                            if(isset($_SESSION['errorUserName'])) {
+                                echo $_SESSION['errorUserName'];
+                                unset ($_SESSION['errorUserName']);
                             }
                             ?>
                         </label>
@@ -118,9 +118,9 @@ if($_SERVER['REQUEST_METHOD'] == 'POST') {
                         <label>Hasło
                             <input name="password" type="password" class="form-control" required>
                             <?php
-                            if(isset($_SESSION['e_password'])) {
-                                echo $_SESSION['e_password'];
-                                unset ($_SESSION['e_password']);
+                            if(isset($_SESSION['errorPassword'])) {
+                                echo $_SESSION['errorPassword'];
+                                unset ($_SESSION['errorPassword']);
                             }
                             ?>
                         </label>
