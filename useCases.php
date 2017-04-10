@@ -3,6 +3,7 @@
 require_once './src/User.php';
 require_once './src/Tweet.php';
 require_once './src/Comment.php';
+require_once './src/Message.php';
 require_once 'config.php';
 
 /*
@@ -109,7 +110,26 @@ var_dump($comment);
 
 $commentsNumber = Comment::getCommentsNumberByTweetId($conn, 1);
 echo $commentsNumber;
+*/
+
+/*
+$message = new Message();
+$message->setAuthorId(17);
+$message->setRecipientId(16);
+$message->setText('Witam, co u ciebie słychać?');
+$message->setCreationDate(date('Y-m-d H:i:s'));
+var_dump($message);
+$message->saveToDb($conn);
  * 
  */
-$d = User::getUserNameById($conn, 15);
-var_dump($d);
+
+$message1 = Message::loadMessageById($conn, 1);
+var_dump($message1);
+$message2 = Message::loadMessageByAuthorId($conn, 16);
+$message3 = Message::loadMessageByAuthorId($conn, 17);
+var_dump($message2);
+var_dump($message3);
+$message4 = Message::loadMessageByRecipientId($conn, 16);
+$message5 = Message::loadMessageByRecipientId($conn, 17);
+var_dump($message4);
+var_dump($message5);

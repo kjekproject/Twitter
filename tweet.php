@@ -8,7 +8,6 @@ if (!isset($_SESSION['loggedUserId'])) {
 }
 
 require_once 'config.php';
-//require_once 'src/User.php';
 require_once 'src/Tweet.php';
 require_once 'src/Comment.php';
 
@@ -37,7 +36,7 @@ var_dump($tweetId);
 <html lang="pl">
     <head>
         <meta charset="UTF-8">
-        <title>Twitter - logowanie</title>
+        <title>Twitter - strona tweeta</title>
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css" integrity="sha384-rwoIResjU2yc3z8GV/NPeZWAv56rSmLldC3R/AZzGRnGxQQKnKkoFVhFQhNUwEyJ" crossorigin="anonymous">
         <link rel="stylesheet" href="css/style.css">
     </head>

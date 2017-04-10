@@ -32,7 +32,7 @@ if($_SERVER['REQUEST_METHOD'] == 'POST') {
 <html lang="pl">
     <head>
         <meta charset="UTF-8">
-        <title>Twitter - logowanie</title>
+        <title>Twitter - strona główna</title>
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css" integrity="sha384-rwoIResjU2yc3z8GV/NPeZWAv56rSmLldC3R/AZzGRnGxQQKnKkoFVhFQhNUwEyJ" crossorigin="anonymous">
         <link rel="stylesheet" href="css/style.css">
     </head>
@@ -68,9 +68,9 @@ if($_SERVER['REQUEST_METHOD'] == 'POST') {
             
             <?php
             //komunikaty dotyczące pomyślnej rejestracji oraz pomyślnego dodania tweeta
-            if(isset($_SESSION['successful_registration'])) {
-                echo $_SESSION['successful_registration'];
-                unset($_SESSION['successful_registration']);
+            if(isset($_SESSION['successfulRegistration'])) {
+                echo $_SESSION['successfulRegistration'];
+                unset($_SESSION['successfulRegistration']);
             }
             
             if(isset($_SESSION['addingTweetMsg'])) {
