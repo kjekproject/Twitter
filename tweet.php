@@ -36,7 +36,7 @@ var_dump($tweetId);
 <html lang="pl">
     <head>
         <meta charset="UTF-8">
-        <title>Twitter - strona tweeta</title>
+        <title>Twitter - tweet</title>
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css" integrity="sha384-rwoIResjU2yc3z8GV/NPeZWAv56rSmLldC3R/AZzGRnGxQQKnKkoFVhFQhNUwEyJ" crossorigin="anonymous">
         <link rel="stylesheet" href="css/style.css">
     </head>
@@ -73,7 +73,7 @@ var_dump($tweetId);
                 //wyświetlanie tweeta
                 $tweet = Tweet::loadTweetById($conn, $tweetId);
                     echo '<div>'
-                            . '<a href="user.php?userId=' . $tweet->getUserId() . '">'
+                            . '<a class="user-link" href="user.php?userId=' . $tweet->getUserId() . '">'
                             . $tweet->getUserName() . '</a> ' . $tweet->getCreationDate()
                             . ' napisał: <br/>' . $tweet->getText()
                         . '</div><br/>';
@@ -88,7 +88,7 @@ var_dump($tweetId);
                     </div>
                     <button type="submit" class="btn btn-secondary" value="newTweet">Dodaj komentarz</button>
                 </fieldset>
-            </form> 
+            </form>
             
             <div>
                 <!--wyświetlanie wszystkich komentarzy do tweeta-->
@@ -97,7 +97,7 @@ var_dump($tweetId);
                 $comments = Comment::loadCommentsByTweetId($conn, $tweetId);
                 for($i = 0; $i < count($comments); $i++) {
                     echo '<div>'
-                            . '<a href="user.php?userId=' . $comments[$i]->getUserId() . '">' . $comments[$i]->getUserName().'</a> '
+                            . '<a class="user-link" href="user.php?userId=' . $comments[$i]->getUserId() . '">' . $comments[$i]->getUserName().'</a> '
                             . $comments[$i]->getCreationDate().' napisał: <br/>'
                             . $comments[$i]->getText() . '<br/>'
                         . '</div><br/>';

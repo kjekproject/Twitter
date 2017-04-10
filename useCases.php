@@ -122,7 +122,7 @@ var_dump($message);
 $message->saveToDb($conn);
  * 
  */
-
+/*
 $message1 = Message::loadMessageById($conn, 1);
 var_dump($message1);
 $message2 = Message::loadMessageByAuthorId($conn, 16);
@@ -133,3 +133,5 @@ $message4 = Message::loadMessageByRecipientId($conn, 16);
 $message5 = Message::loadMessageByRecipientId($conn, 17);
 var_dump($message4);
 var_dump($message5);
+ * 
+ */

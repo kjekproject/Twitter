@@ -46,4 +46,32 @@ legend {
     margin-top: 2px;
 }
 
+.msgStat0 {
+    font-weight: bold;
+}
+
+#main-menu a {
+    color: #554b2b;
+}
+
+.user-link {
+    font-weight: bold;
+    color: #443c22;
+}
+
+.tweet-content {
+    color: #595959;
+}
+
+.tweet-content:hover {
+    color: #8c8c8c;
+    text-decoration: none;
+}
+
+.btn {
+    background-color: #77693c;
+    color: #ffffff;
+    font-weight: bold;
+}
+
 /*https://hackerthemes.com/bootstrap-cheatsheet/#btn-secondary*/

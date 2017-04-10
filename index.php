@@ -20,9 +20,9 @@ if($_SERVER['REQUEST_METHOD'] == 'POST') {
         $newTweet->setCreationDate(date('Y-m-d H:i:s'));
         $newTweet->setUserId($_SESSION['loggedUserId']);
         if ($newTweet->saveToDB($conn) == true) {
-            $_SESSION['addingTweetMsg'] = '<div>Twój tweet został dodany.</div><br/>';
+            $_SESSION['addingTweetMsg'] = '<div class="alert alert-success" role="alert">Twój tweet został dodany.</div><br/>';
         } else {
-            $_SESSION['addingTweetMsg'] = '<div>Wystąpił błąd podczas dodawania tweeta.</div><br/>';
+            $_SESSION['addingTweetMsg'] = '<div class="alert alert-danger" role="alert">Wystąpił błąd podczas dodawania tweeta.</div><br/>';
         }
     }  
 }
@@ -41,7 +41,7 @@ if($_SERVER['REQUEST_METHOD'] == 'POST') {
         
         <nav id="header" class="navbar fixed-top font-italic font-weight-bold">
             <span class="navbar-brand">KJ_TWITTER</span>
-            <a class="btn btn-primary navbar-togler navbar-toggler-right" href="logout.php">Wyloguj</a>
+            <a class="btn navbar-togler navbar-toggler-right" href="logout.php">Wyloguj</a>
         </nav><br/>
         
         <div id="main-menu" class="container">
@@ -82,14 +82,14 @@ if($_SERVER['REQUEST_METHOD'] == 'POST') {
             <!--formularz dodawania nowego tweeta-->
             <form method="POST" action="#">
                 <fieldset class="form-group">
-                    <legend><small>Podziel się z nami swoimi myślami</small></legend>
+                    <legend><small>Podziel się z swoimi opiniami</small></legend>
                     <div class="form-group">
                         <label>Treść do 140 znaków</label><br />
                         <textarea type="text" name="text" maxlength="140" class="form-control"></textarea>
                     </div>
                     <button type="submit" class="btn btn-secondary">Dodaj tweeta</button>
                 </fieldset>
-            </form> 
+            </form> <br/>
             
             <div>
                 <!--wyświetlanie wszystkich tweetów-->
@@ -97,9 +97,9 @@ if($_SERVER['REQUEST_METHOD'] == 'POST') {
                 $tweets = Tweet::loadAllTweets($conn);
                 for($i=0; $i < count($tweets); $i++) {
                     echo '<div>'
-                            . '<a href="user.php?userId='.$tweets[$i]->getUserId().'">'.$tweets[$i]->getUserName().' </a>'
+                            . '<a class="user-link" href="user.php?userId='.$tweets[$i]->getUserId().'">'.$tweets[$i]->getUserName().' </a>'
                             . ' Post opublikowany ' . $tweets[$i]->getCreationDate().'</a><br/>' 
-                            . '<a href="tweet.php?tweetId='.$tweets[$i]->getId().'">'.$tweets[$i]->getText() . '</a>'
+                            . '<a class="tweet-content" href="tweet.php?tweetId='.$tweets[$i]->getId().'">'.$tweets[$i]->getText() . '</a>'
                         . '</div><br/>';
                 }
                 ?>

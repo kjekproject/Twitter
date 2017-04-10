@@ -8,7 +8,6 @@ if (!isset($_SESSION['loggedUserId'])) {
 }
 
 require_once 'config.php';
-require_once 'src/User.php';
 require_once 'src/Message.php';
 
 if($_SERVER['REQUEST_METHOD'] == 'POST') {
@@ -26,9 +25,9 @@ if($_SERVER['REQUEST_METHOD'] == 'POST') {
         $newMessage->setCreationDate(Date('Y-m-d H:i:s'));
         
         if($newMessage->saveToDb($conn) == TRUE) {
-            $_SESSION['sendMessageMsg'] = '<div>Wiadomość została wysłana.</div><br/>';
+            $_SESSION['sendMessageMsg'] = '<div class="alert alert-success" role="alert">Wiadomość została wysłana.</div><br/>';
         } else {
-            $_SESSION['sendMessageMsg'] = '<div>Wystąpił bład podczas wysyłania wiadomości.</div><br/>';
+            $_SESSION['sendMessageMsg'] = '<div class="alert alert-danger" role="alert">Wystąpił bład podczas wysyłania wiadomości.</div><br/>';
         }     
     }
 }
@@ -37,7 +36,7 @@ if($_SERVER['REQUEST_METHOD'] == 'POST') {
 <html lang="pl">
     <head>
         <meta charset="UTF-8">
-        <title>Twitter - logowanie</title>
+        <title>Twitter - wiadomości</title>
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css" integrity="sha384-rwoIResjU2yc3z8GV/NPeZWAv56rSmLldC3R/AZzGRnGxQQKnKkoFVhFQhNUwEyJ" crossorigin="anonymous">
         <link rel="stylesheet" href="css/style.css">
     </head>
@@ -82,10 +81,13 @@ if($_SERVER['REQUEST_METHOD'] == 'POST') {
                     $sentMsgs = Message::loadMessageByAuthorId($conn, $_SESSION['loggedUserId']);
                     if($sentMsgs != NULL) {
                         echo '<h5>Wysłane wiadomości:</h5><br>';
-                        foreach($sendMags as $msg) {
-                            echo 'Wiadomość wysłana '.$msg['creationDate'].' do '
-                                .'<a href="user.php?userId='.$msg['recipientId'].'">'
-                                ;
+                        foreach($sentMsgs as $msg) {
+                            $text = substr($msg->getText(), 0, 30);
+                            echo '<div>'
+                                . 'Wiadomość wysłana '.$msg->getCreationDate()
+                                .' do <a class="user-link" href="user.php?userId='.$msg->getRecipientId().'">'.$msg->getRecipientName().'</a><br/>'
+                                .'<a class="msgStat'.$msg->getStatus().'" href="message.php?messageId='.$msg->getId().'">'.$text.'</a>'
+                                .'</div><br/>';
                         }
                     } else {
                         echo '<h5>Brak wysłanych wiadomości.</h5>';
@@ -93,7 +95,22 @@ if($_SERVER['REQUEST_METHOD'] == 'POST') {
                     ?>
                 </div>
                 <div class="col-md-6">
-                    
+                    <?php
+                    $receivedMsgs = Message::loadMessageByRecipientId($conn, $_SESSION['loggedUserId']);
+                    if($receivedMsgs != NULL) {
+                        echo '<h5>Otrzymane wiadomości:</h5><br>';
+                        foreach($receivedMsgs as $msg) {
+                            $text = substr($msg->getText(), 0, 30);
+                            echo '<div>'
+                                . 'Wiadomość otrzymana '.$msg->getCreationDate()
+                                .' od <a class="user-link" href="user.php?userId='.$msg->getAuthorId().'">'.$msg->getAuthorName().'</a><br/>'
+                                .'<a class="msgStat'.$msg->getStatus().'" href="message.php?messageId='.$msg->getId().'">'.$text.'</a>'
+                                .'</div><br/>';
+                        }
+                    } else {
+                        echo '<h5>Brak otrzymanych wiadomości.</h5>';
+                    }
+                    ?>
                 </div>
             </div>
         </div>

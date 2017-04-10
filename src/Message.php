@@ -83,6 +83,13 @@ class Message {
                 $this->id = $conn->insert_id;
                 return TRUE;
             }
+        } else {
+            $sql = "UPDATE messages SET status=$this->status WHERE id=$this->id";
+            $result = $conn->query($sql);
+            
+            if($result == TRUE) {
+                return TRUE;
+            }   
         }
         return FALSE;
     }
@@ -168,16 +175,5 @@ class Message {
             }
         }
         return $messages;
-    }
-    
-    static public function changeStatusOfaMessage(mysqli $conn, $messageId) {
-        $message = self::loadMessageById($conn, $messageId);
-        $status = $message->getStatus();
-        if($status == 0) {
-            $message->setStatus(1);
-            $message->saveToDb($conn);
-            return true;
-        }
-        return false;
     }
 }

@@ -37,7 +37,7 @@ if($_SERVER['REQUEST_METHOD'] === 'GET') {
         
         <nav id="header" class="navbar fixed-top font-italic font-weight-bold">
             <span class="navbar-brand">KJ_TWITTER</span>
-            <a class="btn btn-primary navbar-togler navbar-toggler-right" href="logout.php">Wyloguj</a>
+            <a class="btn navbar-togler navbar-toggler-right" href="logout.php">Wyloguj</a>
         </nav>
         
         <div id="main-menu" class="container">
@@ -82,7 +82,7 @@ if($_SERVER['REQUEST_METHOD'] === 'GET') {
                 <div class="col-md-4">
                     <?php
                     if($userId != $_SESSION['loggedUserId']) {
-                    echo '<a class="btn btn-primary float-md-right" href="send_message.php?recipientId='.$userId.'">'
+                    echo '<a class="btn float-md-right" href="send_message.php?recipientId='.$userId.'">'
                     . 'Wyślij wiadomość do '.$userName.'</a>';
                     }
                     ?>

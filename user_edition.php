@@ -58,7 +58,7 @@ if($_SERVER['REQUEST_METHOD'] === 'POST') {
                 $user->setPassword($newPassword);
 
                 if($user->saveToDB($conn) == TRUE) {
-                    $_SESSION['successfulChange'] = '<div>Dane użytkownika zostały zmienione.</div><br/>';     
+                    $_SESSION['successfulChange'] = '<div class="alert alert-success" role="alert">Dane użytkownika zostały zmienione.</div><br/>';     
                 }
             }
         }
@@ -80,7 +80,7 @@ if($_SERVER['REQUEST_METHOD'] === 'POST') {
         
         <nav id="header" class="navbar fixed-top font-italic font-weight-bold">
             <span class="navbar-brand">KJ_TWITTER</span>
-            <a class="btn btn-primary navbar-togler navbar-toggler-right" href="logout.php">Wyloguj</a>
+            <a class="btn navbar-togler navbar-toggler-right" href="logout.php">Wyloguj</a>
         </nav>
         
         <div id="main-menu" class="container">
@@ -149,7 +149,7 @@ if($_SERVER['REQUEST_METHOD'] === 'POST') {
                             ?>
                         </label>
                     </div>
-                    <button type="submit" class="btn btn-secondary">Zmień</button>
+                    <button type="submit" class="btn">Zmień</button>
                 </fieldset>
             </form> 
         </div>

@@ -51,7 +51,7 @@ if($_SERVER['REQUEST_METHOD'] == 'POST') {
             
             if($newUser->saveToDB($conn) == TRUE) {
                 $_SESSION['loggedUserId'] = $newUser->getId();
-                $_SESSION['successfulRegistration'] = '<div>Rejestracja udana. Witamy!</div><br/>';
+                $_SESSION['successfulRegistration'] = '<div class="alert alert-success" role="alert">Rejestracja udana. Witamy!</div><br/>';
                 header('Location: index.php');
             }
         }
