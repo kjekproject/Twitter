@@ -75,7 +75,8 @@ var_dump($tweetId);
                     echo '<div>'
                             . '<a class="user-link" href="user.php?userId=' . $tweet->getUserId() . '">'
                             . $tweet->getUserName() . '</a> ' . $tweet->getCreationDate()
-                            . ' napisał: <br/>' . $tweet->getText()
+                            . ' napisał/a: <br/>' 
+                            . '<blockquote class="blockquote">'.$tweet->getText().'</blockquote>'
                         . '</div><br/>';
                 ?>
             <!--formularz dodawania nowego komentarza-->
@@ -98,7 +99,7 @@ var_dump($tweetId);
                 for($i = 0; $i < count($comments); $i++) {
                     echo '<div>'
                             . '<a class="user-link" href="user.php?userId=' . $comments[$i]->getUserId() . '">' . $comments[$i]->getUserName().'</a> '
-                            . $comments[$i]->getCreationDate().' napisał: <br/>'
+                            . $comments[$i]->getCreationDate().' napisał/a: <br/>'
                             . $comments[$i]->getText() . '<br/>'
                         . '</div><br/>';
                 }

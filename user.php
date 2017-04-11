@@ -94,9 +94,11 @@ if($_SERVER['REQUEST_METHOD'] === 'GET') {
             for($i=0; $i <count($userTweets); $i++) {
                 $commentsNumber = Comment::getCommentsNumberByTweetId($conn, $userTweets[$i]->getId());
                 echo '<div>'
-                        . ' Tweet opublikowany ' . $userTweets[$i]->getCreationDate().'<br/>' 
-                        . '<a href="tweet.php?tweetId='.$userTweets[$i]->getId().'">'.$userTweets[$i]->getText() . '<br/>'
-                        . 'Liczba komentarzy: ' . $commentsNumber . '</a>'
+                        . ' Tweet opublikowany ' . $userTweets[$i]->getCreationDate().'<br/>'
+                        . '<blockquote class="blockquote">'
+                        . '<a class="tweet-content" href="tweet.php?tweetId='.$userTweets[$i]->getId().'">'.$userTweets[$i]->getText().'<br/>'
+                        . '<small>Liczba komentarzy: ' . $commentsNumber . '</small></a>'
+                        . '</blockquote>'
                     . '</div><br/>';
             }
             ?>

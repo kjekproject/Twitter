@@ -98,8 +98,10 @@ if($_SERVER['REQUEST_METHOD'] == 'POST') {
                 for($i=0; $i < count($tweets); $i++) {
                     echo '<div>'
                             . '<a class="user-link" href="user.php?userId='.$tweets[$i]->getUserId().'">'.$tweets[$i]->getUserName().' </a>'
-                            . ' Post opublikowany ' . $tweets[$i]->getCreationDate().'</a><br/>' 
+                            . ' Post opublikowany ' . $tweets[$i]->getCreationDate().'</a><br/>'
+                            . '<blockquote class="blockquote">'
                             . '<a class="tweet-content" href="tweet.php?tweetId='.$tweets[$i]->getId().'">'.$tweets[$i]->getText() . '</a>'
+                            . '</blockquote>'
                         . '</div><br/>';
                 }
                 ?>

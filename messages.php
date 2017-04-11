@@ -86,8 +86,9 @@ if($_SERVER['REQUEST_METHOD'] == 'POST') {
                             echo '<div>'
                                 . 'Wiadomość wysłana '.$msg->getCreationDate()
                                 .' do <a class="user-link" href="user.php?userId='.$msg->getRecipientId().'">'.$msg->getRecipientName().'</a><br/>'
-                                .'<a class="msgStat'.$msg->getStatus().'" href="message.php?messageId='.$msg->getId().'">'.$text.'</a>'
-                                .'</div><br/>';
+                                .'<blockquote class="blockquote">'
+                                .'<a class="msgStat'.$msg->getStatus().' tweet-content" href="message.php?messageId='.$msg->getId().'">'.$text.'</a>'
+                                .'</blockquote></div><br/>';
                         }
                     } else {
                         echo '<h5>Brak wysłanych wiadomości.</h5>';
@@ -104,8 +105,9 @@ if($_SERVER['REQUEST_METHOD'] == 'POST') {
                             echo '<div>'
                                 . 'Wiadomość otrzymana '.$msg->getCreationDate()
                                 .' od <a class="user-link" href="user.php?userId='.$msg->getAuthorId().'">'.$msg->getAuthorName().'</a><br/>'
-                                .'<a class="msgStat'.$msg->getStatus().'" href="message.php?messageId='.$msg->getId().'">'.$text.'</a>'
-                                .'</div><br/>';
+                                .'<blockquote class="blockquote">'
+                                .'<a class="msgStat'.$msg->getStatus().' tweet-content" href="message.php?messageId='.$msg->getId().'">'.$text.'</a>'
+                                .'</blockquote></div><br/>';
                         }
                     } else {
                         echo '<h5>Brak otrzymanych wiadomości.</h5>';

@@ -59,6 +59,10 @@ legend {
     color: #443c22;
 }
 
+.user-link:hover {
+    text-decoration: none;
+}
+
 .tweet-content {
     color: #595959;
 }
@@ -69,9 +73,13 @@ legend {
 }
 
 .btn {
-    background-color: #77693c;
+    background-color: #99874d;
     color: #ffffff;
     font-weight: bold;
+}
+
+.blockquote {
+    font-size: 16px;
 }
 
 /*https://hackerthemes.com/bootstrap-cheatsheet/#btn-secondary*/

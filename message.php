@@ -73,13 +73,13 @@ if($loggedUserId == $recipientId) {
                 <?php
                 if($recipient == TRUE) {
                     echo '<div>'
-                        .$msg->getCreationDate() .' otrzymałeś wiadomość od <a href="user.php?userId='.$msg->getAuthorId().'">'.$msg->getAuthorName().'</a><br/>'
-                        .$msg->getText()
+                        .$msg->getCreationDate() .' otrzymałeś/aś wiadomość od <a class="user-link" href="user.php?userId='.$msg->getAuthorId().'">'.$msg->getAuthorName().'</a><br/>'
+                        .'<blockquote class="blockquote">'.$msg->getText().'</blockquote>'
                         .'</div><br/>';
                 } else {
                     echo '<div>'
-                        .$msg->getCreationDate() .' otrzymałeś wiadomość od <a href="user.php?userId='.$msg->getRecipientId().'">'.$msg->getRecipientName().'</a><br/>'
-                        .$msg->getText()
+                        .$msg->getCreationDate() .' wysłałeś/aś wiadomość do <a class="user-link" href="user.php?userId='.$msg->getRecipientId().'">'.$msg->getRecipientName().'</a><br/>'
+                        .'<blockquote class="blockquote">'.$msg->getText().'</blockquote>'
                         .'</div><br/>';
                 }
                 ?>
